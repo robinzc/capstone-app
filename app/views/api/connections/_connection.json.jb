@@ -1,0 +1,6 @@
+{
+  id: connection.id,
+  sender_id: connection.user_id,
+  recipient_id: connection.user_id,
+  accepted: connection.accepted
+}

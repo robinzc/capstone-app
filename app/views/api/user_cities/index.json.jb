@@ -1,0 +1,3 @@
+@user_cities.map do |user_city|
+  render partial: "user_city.json.jb", locals: { user_city: user_city }
+end

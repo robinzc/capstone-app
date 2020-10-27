@@ -1,0 +1,3 @@
+@connections.map do |connection|
+  render partial: "connection.json.jb", locals: { connection: connection }
+end

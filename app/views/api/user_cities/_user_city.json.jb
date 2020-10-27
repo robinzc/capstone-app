@@ -1,0 +1,9 @@
+{
+  id: user_city.id,
+  user_id: user_city.user_id,
+  city_id: user_city.city_id,
+  visited: user_city.visited,
+  lived: user_city.lived,
+  current_living: user_city.current_living,
+  current_visiting: user_city.current_visiting
+}
