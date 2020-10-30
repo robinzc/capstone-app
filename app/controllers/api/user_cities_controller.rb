@@ -1,5 +1,7 @@
 class Api::UserCitiesController < ApplicationController
 
+  before_action :authenticate_user
+
   def create
     @user_city = UserCity.new(
       user_id: current_user.id, 
@@ -17,8 +19,8 @@ class Api::UserCitiesController < ApplicationController
   end
 
   def update
-    @user_city = UserCity.find_by(params[:id])
-    #Hmmmmmm....
+    @user_city = UserCity.find(params[:id])
+
     @user_city.city_id = params[:city_id] || @user_city.city_id
     @user_city.visited = params[:visited] || @user_city.visited 
     @user_city.lived = params[:lived] || @user_city.lived
@@ -35,7 +37,6 @@ class Api::UserCitiesController < ApplicationController
 
   def destroy
     user_city = current_user.user_cities.find(params[:id])
-    user_city.status = "removed"
     user_city.save
     render json: { status: "You have removed this city from your experiences"}
   end
