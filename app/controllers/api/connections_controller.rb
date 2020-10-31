@@ -31,6 +31,8 @@ class Api::ConnectionsController < ApplicationController
       else
         render json: { errors: @connection.errors.full_messages }, status: 422
       end
+    else
+      render json: { errors: @connection.errors.full_messages }, status: 422
     end
   end
 

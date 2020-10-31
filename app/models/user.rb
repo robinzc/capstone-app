@@ -7,7 +7,7 @@ class User < ApplicationRecord
   has_many :cities, through: :user_cities
 
   def connections
-    Connection.where("sender_id = ? OR recipient_id = ? AND accepted = ?", id, id, true)
+    Connection.where("sender_id = ? OR recipient_id = ?", id, id)
   end
 
   def sender
