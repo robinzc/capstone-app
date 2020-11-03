@@ -21,25 +21,29 @@ class Api::ConnectionsController < ApplicationController
     end
   end
 
-  # Needs work
   def update
     @connection = Connection.find(params[:id])
     if current_user.id == @connection.recipient.id
-      @connection.accepted = params[:accepted] || @connection.accepted
+      @connection.accepted = true
       if @connection.save 
         render "show.json.jb"
       else
         render json: { errors: @connection.errors.full_messages }, status: 422
       end
     else
-      render json: { errors: @connection.errors.full_messages }, status: 422
+      render json: { errors: "You are not the connection recipient" }, status: 401
     end
   end
 
   def destroy
     connection = current_user.connections.find(params[:id])
-    connection.save
+    connection.destroy
     render json: { status: "You have removed this person from your connections"}
+  end
+
+  def map_connections
+    @friends = current_user.accepted_friends
+    render "map_connections.json.jb"    
   end
 
 

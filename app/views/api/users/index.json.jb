@@ -1,3 +1,10 @@
 @users.map do |user|
-  render partial: "user.json.jb", locals: { user: user }
+  user_hash = render partial: "user.json.jb", locals: { user: user }
+  if current_user && current_user.pending_friends.include?(user)
+    user_hash[:pending_friend] = true
+  end
+  if current_user && current_user.accepted_friends.include?(user)
+    user_hash[:accepted_friend] = true
+  end
+  user_hash
 end

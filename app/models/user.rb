@@ -3,7 +3,7 @@ class User < ApplicationRecord
   has_secure_password
   validates :email, presence: true, uniqueness: true
   
-  has_many :user_cities
+  has_many :user_cities, dependent: :destroy
   has_many :cities, through: :user_cities
 
   def connections
@@ -16,6 +16,31 @@ class User < ApplicationRecord
 
   def recipient
     Connection.where("recipient_id = ? AND accepted = ?", id, false)
+  end
+
+  # returns user obejcts based on connections
+  def pending_friends
+    friends = []
+    connections.where(accepted: false).map do |connection|
+      if self == connection.sender
+        friends << connection.recipient
+      else
+        friends << connection.sender
+      end
+    end
+    friends
+  end
+
+  def accepted_friends
+    friends = []
+    connections.where(accepted: true).map do |connection|
+      if self == connection.sender
+        friends << connection.recipient
+      else
+        friends << connection.sender
+      end
+    end
+    friends
   end
 
 end

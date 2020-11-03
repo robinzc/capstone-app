@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     post "/connections" => "connections#create"
     patch "/connections/:id" => "connections#update"
     delete "/connections/:id" => "connections#destroy"
+    get "/map_connections" => "connections#map_connections"
 
     post "/user_cities" => "user_cities#create"
     patch "/user_cities/:id" => "user_cities#update"

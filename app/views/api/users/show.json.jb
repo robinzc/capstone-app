@@ -1,1 +1,13 @@
-render partial: "user.json.jb", locals: {user: @user }
+user = render partial: "user.json.jb", locals: {user: @user }
+user[:associated_cities] = @user.user_cities.map do |user_city|
+  user_city_hash = render partial: "api/user_cities/user_city", locals: {user_city: user_city}
+  user_city_hash[:city_name] = user_city.city.name
+  user_city_hash
+end
+if current_user && current_user.pending_friends.include?(@user)
+  user[:pending_friend] = true
+end
+if current_user && current_user.accepted_friends.include?(@user)
+  user[:accepted_friend] = true
+end
+user

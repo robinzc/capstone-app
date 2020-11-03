@@ -1,3 +1,9 @@
 @connections.map do |connection|
-  render partial: "connection.json.jb", locals: { connection: connection }
+  connection_hash = render partial: "connection.json.jb", locals: { connection: connection }
+  if current_user == connection.sender
+    connection_hash[:connection] = render partial: "api/users/user", locals: {user: connection.recipient}
+  else
+    connection_hash[:connection] = render partial: "api/users/user", locals: {user: connection.sender}
+  end
+  connection_hash
 end

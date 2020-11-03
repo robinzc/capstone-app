@@ -1,0 +1,12 @@
+@friends.map do |friend|
+  friend_hash = render partial: "api/users/user", locals: {user: friend}
+  friend_hash[:associated_cities] = friend.user_cities.map do |user_city|
+    user_city_hash = render partial: "api/cities/city", locals: {city: user_city.city}
+    user_city_hash[:visited] = user_city.visited
+    user_city_hash[:lived] = user_city.lived
+    user_city_hash[:current_living] = user_city.current_living
+    user_city_hash[:current_visiting] = user_city.current_visiting
+    user_city_hash
+  end
+  friend_hash
+end
