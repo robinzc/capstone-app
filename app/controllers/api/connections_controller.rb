@@ -7,7 +7,6 @@ class Api::ConnectionsController < ApplicationController
     render "index.json.jb"
   end
 
-  # How can I prohibit more than 1 connection request being sent?
   def create
     @connection = Connection.new(
       sender_id: current_user.id,
