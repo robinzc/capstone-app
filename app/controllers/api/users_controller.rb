@@ -41,7 +41,7 @@ class Api::UsersController < ApplicationController
       @user.user_cities.destroy_all
       # params[:city_associations] = [{city_id: 4, visited: true}, {city_id: 3, current_living: true}, {city_id: 7, lived: true}]
       # remove eval for frontend (it's for insomnia stringified array)
-      eval(params[:city_associations]).each do |city_association|
+      params[:city_associations].each do |city_association|
         UserCity.create(
           user_id: current_user.id, 
           city_id: city_association[:city_id],
