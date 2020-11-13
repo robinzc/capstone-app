@@ -22,14 +22,13 @@ class User < ApplicationRecord
   def pending_friends
     friends = []
     connections.where(accepted: false).map do |connection|
-      if self == connection.sender
-        friends << connection.recipient
-      else
+      if self == connection.recipient
         friends << connection.sender
       end
     end
     friends
   end
+# Array of people that sent me a friend request (so only I can accept)
 
   def accepted_friends
     friends = []
